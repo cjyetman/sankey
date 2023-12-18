@@ -1,5 +1,5 @@
 import 'widgets';
-import 'd3-sankey';
+import { sankey as d3Sankey, sankeyLinkHorizontal as d3SsankeyLinkHorizontal } from 'd3-sankey';
 
 HTMLWidgets.widget({
 
@@ -9,7 +9,7 @@ HTMLWidgets.widget({
 
   factory: function(el, width, height) {
 
-    var plot;
+    var sankey;
 
     return {
 
@@ -18,7 +18,7 @@ HTMLWidgets.widget({
         const data = x.data;
 
         // Constructs and configures a Sankey generator.
-        const plot = sankey()
+        const sankey = d3Sankey()
             .nodeId(d => d.name)
             .nodeAlign(d3[nodeAlign]) // d3.sankeyLeft, etc.
             .nodeWidth(15)
@@ -27,7 +27,7 @@ HTMLWidgets.widget({
 
         // Applies it to the data. We make a copy of the nodes and links objects
         // so as to avoid mutating the original.
-        const {nodes, links} = plot({
+        const {nodes, links} = sankey({
           nodes: data.nodes.map(d => Object.assign({}, d)),
           links: data.links.map(d => Object.assign({}, d))
         });
