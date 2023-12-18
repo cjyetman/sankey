@@ -5,11 +5,12 @@
 #' @import htmlwidgets
 #'
 #' @export
-sankey <- function(message, width = NULL, height = NULL, elementId = NULL) {
+sankey <- function(data, ..., width = NULL, height = NULL, elementId = NULL) {
 
   # forward options using x
   x = list(
-    message = message
+    data = data,
+    ...
   )
 
   # create widget

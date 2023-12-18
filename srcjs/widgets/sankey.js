@@ -1,5 +1,5 @@
 import 'widgets';
-import { asHeader } from '../modules/header.js'; 
+import 'd3-sankey';
 
 HTMLWidgets.widget({
 
@@ -9,14 +9,28 @@ HTMLWidgets.widget({
 
   factory: function(el, width, height) {
 
-    // TODO: define shared variables for this instance
+    var plot;
 
     return {
 
       renderValue: function(x) {
 
-        // TODO: code to render the widget, e.g.
-        el.innerHTML = asHeader(x);
+        const data = x.data;
+
+        // Constructs and configures a Sankey generator.
+        const plot = sankey()
+            .nodeId(d => d.name)
+            .nodeAlign(d3[nodeAlign]) // d3.sankeyLeft, etc.
+            .nodeWidth(15)
+            .nodePadding(10)
+            .extent([[1, 5], [width - 1, height - 5]]);
+
+        // Applies it to the data. We make a copy of the nodes and links objects
+        // so as to avoid mutating the original.
+        const {nodes, links} = plot({
+          nodes: data.nodes.map(d => Object.assign({}, d)),
+          links: data.links.map(d => Object.assign({}, d))
+        });
 
       },
 
