@@ -1,6 +1,8 @@
-#' <Add Title>
+#' Create sankey plot
 #'
-#' <Add Description>
+#' @param data data.frame as primary data source
+#' @param ... named options passed to Observable Plot
+#' @inheritParams htmlwidgets::createWidget
 #'
 #' @import htmlwidgets
 #'
