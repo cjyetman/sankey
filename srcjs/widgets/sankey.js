@@ -1,4 +1,5 @@
 import 'widgets';
+import * as d3 from 'd3';
 import { sankey as d3Sankey, sankeyLinkHorizontal as d3SsankeyLinkHorizontal } from 'd3-sankey';
 
 HTMLWidgets.widget({
