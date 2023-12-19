@@ -1,6 +1,7 @@
 import 'widgets';
-import * as d3 from 'd3';
-import * as d3Sankey from 'd3-sankey';
+import * as d3Base from 'd3';
+import * as d3Sankey from "d3-sankey";
+const d3 = Object.assign(d3Base, d3Sankey);
 
 HTMLWidgets.widget({
 
