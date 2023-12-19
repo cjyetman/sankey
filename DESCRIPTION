@@ -12,3 +12,5 @@ Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.2.3
 Imports: 
     htmlwidgets
+URL: https://github.com/cjyetman/sankey
+BugReports: https://github.com/cjyetman/sankey/issues
