@@ -22,10 +22,12 @@ HTMLWidgets.widget({
           nodes: HTMLWidgets.dataframeToD3(x.data.nodes)
         };
 
+        const opts = x.opts;
+
         // https://observablehq.com/@d3/sankey/2?collection=@d3/d3-sankey
 
-        const nodeAlign = "sankeyJustify";
-        const linkColor = "source-target";
+        const nodeAlign = opts.nodeAlign ?? "sankeyJustify";
+        const linkColor = opts.linkColor ?? "source-target";
 
         const format = d3.format(",.0f");
 

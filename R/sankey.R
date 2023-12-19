@@ -10,10 +10,9 @@
 sankey <- function(data, ..., width = NULL, height = NULL, elementId = NULL) {
 
   # forward options using x
-  x = list(
-    data = data,
-    ...
-  )
+  x <- list()
+  x$data <- data
+  x$opts <- list(...)
 
   # create widget
   htmlwidgets::createWidget(
