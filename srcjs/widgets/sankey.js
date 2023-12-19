@@ -63,6 +63,32 @@ HTMLWidgets.widget({
           .style("border-radius", "4px")
           .style("pointer-events", "none");
 
+        function mouseover(event, d) {
+          if (d.name === undefined) {
+            var tooltip_text = d.source.name + " → " + d.target.name + "<br/>" + format(d.value);
+          } else {
+            var tooltip_text = d.name + "<br/>" + format(d.value);
+          }
+          tooltip_div.transition()
+            .duration(tooltipTransitionDuration)
+            .style("opacity", tooltipOpacity);
+          tooltip_div.html(tooltip_text)
+            .style("left", (event.pageX) + "px")
+            .style("top", (event.pageY - 28) + "px");
+        }
+
+        function mousemove(event) {
+          tooltip_div
+            .style("left", (event.pageX) + "px")
+            .style("top", (event.pageY - 28) + "px");
+        }
+
+        function mouseout() {
+          tooltip_div.transition()
+            .duration(tooltipTransitionDuration)
+            .style("opacity", 0);
+        }
+
         // Create a SVG container.
         const svg = d3.create("svg")
             .attr("width", width)
@@ -98,7 +124,10 @@ HTMLWidgets.widget({
             .attr("y", d => d.y0)
             .attr("height", d => d.y1 - d.y0)
             .attr("width", d => d.x1 - d.x0)
-            .attr("fill", d => color(d[nodeGroup]));
+            .attr("fill", d => color(d[nodeGroup]))
+            .on("mouseover", mouseover)
+            .on("mousemove", mousemove)
+            .on("mouseout", mouseout);
 
         // Adds a title on the nodes.
         rect.append("title")
@@ -135,24 +164,9 @@ HTMLWidgets.widget({
                 : linkColor === "target" ? (d) => color(d.target[nodeGroup])
                 : linkColor)
             .attr("stroke-width", d => Math.max(1, d.width))
-            .on("mouseover", function(event,d) {
-              tooltip_div.transition()
-                .duration(tooltipTransitionDuration)
-                .style("opacity", tooltipOpacity);
-              tooltip_div.html(d.source.name + " → " + d.target.name + "<br/>" + format(d.value))
-                .style("left", (event.pageX) + "px")
-                .style("top", (event.pageY - 28) + "px");
-              })
-            .on("mouseout", function(d) {
-              tooltip_div.transition()
-                .duration(tooltipTransitionDuration)
-                .style("opacity", 0);
-              })
-            .on("mousemove", function(event,d) {
-              tooltip_div
-                .style("left", (event.pageX) + "px")
-                .style("top", (event.pageY - 28) + "px");
-              });
+            .on("mouseover", mouseover)
+            .on("mousemove", mousemove)
+            .on("mouseout", mouseout);
 
         // Adds labels on the nodes.
         svg.append("g")
